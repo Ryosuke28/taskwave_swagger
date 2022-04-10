@@ -12,9 +12,9 @@ services:
     ports:
       - 8011:8080
     volumes:
-      - ./openapi/merged.yaml:/usr/share/nginx/html/merged.yaml
+      - ./openapi/auth-api:/usr/share/nginx/html/auth-api
     environment:
-      API_URL: merged.yaml
+      API_URL: auth-api/user.yaml
   redoc:
     image: redocly/redoc
     ports:
@@ -27,11 +27,11 @@ services:
     build: ./docker/redoc-cli
     volumes:
       - ./openapi:/data
-  swagger-merger:
-    build: ./docker/swagger-merger
-    volumes:
-      - ./docker/swagger-merger/watch.js:/watch.js
-      - ./openapi:/data
-    environment:
-      NODE_PATH: /usr/local/lib/node_modules
-    entrypoint: node /watch
+  # swagger-merger:
+  #   build: ./docker/swagger-merger
+  #   volumes:
+  #     - ./docker/swagger-merger/watch.js:/watch.js
+  #     - ./openapi:/data
+  #   environment:
+  #     NODE_PATH: /usr/local/lib/node_modules
+  #   entrypoint: node /watch
